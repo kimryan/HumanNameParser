@@ -1,7 +1,12 @@
 Revision history for Perl CPAN module Lingua::En::NameParse
 
+1.34 5 Jul 2016
+    Used github as repository
+    Imporved documentation
+
+
 1.34 1 Jun 2016
-    Added military title  Pvt (for Private in the USA) RT bug #113972
+    Added military title Pvt (for Private in the USA) RT bug #113972
 
 1.33 22 Apr 2015
     Removed 'Mr_J_Adam_Smith' name type.  Names that were most likely double surnames were being incorrectly parsed
@@ -10,7 +15,7 @@ Revision history for Perl CPAN module Lingua::En::NameParse
     
     Fold all text to upper case prior to parsing, regexp matching is faster if case insensitive
         Note that this means all components are now NameCased by default.
-        The case_components method has been removed as components methods achieves the same outcome
+        The case_components method has been removed as the 'components' method achieves the same outcome
         The force_case option has been removed
     
     non_matching text moved from properties to components

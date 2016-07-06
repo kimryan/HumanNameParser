@@ -1,6 +1,6 @@
 =head1 NAME
 
-Lingua::EN::NameParse -  extract the components of a person's full name
+Lingua::EN::NameParse - extract the components of a person's full name
 
 =head1 SYNOPSIS
 
@@ -29,10 +29,10 @@ Lingua::EN::NameParse -  extract the components of a person's full name
 
         $correct_casing = $name->case_all_reversed ; # de Silva, AC
 
-        $good_name = clean("Bad Na9me   "); # "Bad Name"
-
         $salutation = $name->salutation(salutation => 'Dear',sal_default => 'Friend')); # Dear Mr de Silva
-
+        
+        $good_name = clean("Bad Na9me   "); # "Bad Name"
+  
         %my_properties = $name->properties;
         $number_surnames = $my_properties{number}; # 1
     }
@@ -40,14 +40,14 @@ Lingua::EN::NameParse -  extract the components of a person's full name
     $name->report; # create a report listing all information about the parsed name
 
     $lc_prefix = 0;
-    $correct_case = case_surname("DE SILVA-MACNAY",$lc_prefix); # De Silva-MacNay
+    $correct_case = case_surname("DE SILVA-MACNAY",$lc_prefix); # A stand alone function, returns: De Silva-MacNay
 
 
 
 =head1 DESCRIPTION
 
 
-This module takes as input a person or persons name in
+This module takes as input one person's name or two persons' names in
 free format text such as,
 
     Mr AB & M/s CD MacNay-Smith
@@ -63,7 +63,7 @@ down into components and useful functions can be performed such as :
    determining the type of format the name is in      (Mr_A_Smith     )
 
 
-If the name cannot be parsed you have the option of cleaning the name
+If the name(s) cannot be parsed you have the option of cleaning the name(s)
 of bad characters, or extracting any portion that was parsed and the
 portion that failed.
 
@@ -79,7 +79,7 @@ that can make up a name.
 
    Precursor   - Estate of (The Late), Right Honourable ...
    Title       - Mr, Mrs, Ms., Sir, Dr, Major, Reverend ...
-   Conjunction - word to separate names or initials, such as "And"
+   Conjunction - word to separate two names, such as "And" or &
    Initials    - 1-3 letters, each with an optional space and/or dot
    Surname     - De Silva, Van Der Heiden, MacNay-Smith, O'Reilly ...
    Suffix      - Snr., Jnr, III, V ...
@@ -114,8 +114,7 @@ of the name is used. The following formats are currently supported :
     A_Smith
     John
 
-Precursors and suffixes may be applied to single names that include a surname
-
+Precursors and suffixes may be applied to single names that includes a surname
 
 
 =head1 METHODS
@@ -212,7 +211,7 @@ the following titles are accounted for:
 
 
 Note that if this option is not specified, than by default extended titles
-are ignored. Disabling  extended titles speeds up the processing.
+are ignored. Disabling extended titles speeds up the parsing.
 
 =back
 
@@ -223,7 +222,7 @@ are ignored. Disabling  extended titles speeds up the processing.
 The C<parse> method takes a single parameter of a text string containing a
 name. It attempts to parse the name and break it down into the components
 
-Returns an error flag, if the name was parsed successfully, it's value is 0,
+Returns an error flag. If the name was parsed successfully, it's value is 0,
 otherwise a 1. This step is a prerequisite for the following methods.
 
 
@@ -457,6 +456,10 @@ to specify a new module with its own grammar, and inherit all the existing
 methods. I don't have the knowledge of the naming conventions for non-english
 languages.
 
+=head1 REPOSITORY
+
+L<https://github.com/kimryan/Lingua-EN-NameParse>
+
 
 =head1 SEE ALSO
 
@@ -505,7 +508,7 @@ use Parse::RecDescent;
 use Exporter;
 use vars qw (@ISA @EXPORT_OK);
 
-our $VERSION = '1.34';
+our $VERSION = '1.35';
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(clean case_surname);
 

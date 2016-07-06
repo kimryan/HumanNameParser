@@ -36,7 +36,7 @@ package Lingua::EN::NameParse::Grammar;
 use strict;
 use warnings;
 
-our $VERSION = '1.34';
+our $VERSION = '1.35';
 
 
 # Rules that define valid orderings of a names components

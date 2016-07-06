@@ -6,8 +6,19 @@ WriteMakefile
 (
     'NAME'         => 'Lingua::EN::NameParse',
     'VERSION_FROM' => 'lib/Lingua/EN/NameParse.pm',
-    'ABSTRACT'    => 'Manipulate peoples names, titles and initials',
+    'ABSTRACT'    => "Extract the components of a person's full name",
     'AUTHOR'      => 'Kim Ryan',
     'LICENSE'     => 'perl',
-    'PREREQ_PM'   =>  { 'Parse::RecDescent' => 0 }
+    'PREREQ_PM'   =>  { 'Parse::RecDescent' => 0 },
+    
+    META_MERGE => {
+    'meta-spec' => { version => 2 },
+     resources => {
+         repository => {
+             type => 'git',
+             url  => 'https://github.com/dwimperl/Task-DWIM.git',
+             web  => 'https://github.com/dwimperl/Task-DWIM',
+         },
+     },
+    }
 );
