@@ -36,7 +36,7 @@ package Lingua::EN::NameParse::Grammar;
 use strict;
 use warnings;
 
-our $VERSION = '1.35';
+our $VERSION = '1.36';
 
 
 # Rules that define valid orderings of a names components
@@ -394,9 +394,7 @@ q{
 
 my $titles =
 q{
-    # Place most frequent titles frist to speed matching    
-    title : /(MR|MS|M\/S|MRS|MISS|DR) / 
- 
+    title : /(MR|MS|M\/S|MRS|MISS|DR) /  
 };
 
 my $extended_titles =
@@ -423,7 +421,9 @@ q{
     DOCTOR|SISTER|MATRON|
     
     # Legal
-    JUDGE|JUSTICE|
+    JUDGE|
+    JUSTICE|
+    MAGISTRATE|
     
     # Police
     DET|INSP|CONST|
@@ -461,15 +461,23 @@ q{
     PASTOR|
     MOTHER\ SUPERIOR|MOTHER|
     MOST\ REVER[E|A]ND|
-    MUFTI|
-    VERY\ REVER[E|A]ND|
-    REVER[E|A]ND|
     MT\ REVD|V\ REVD|REVD|
+    MUFTI|
+    REVER[E|A]ND|
+    REVD|
+    REV|
+    SHEIKH?|
+    VERY\ REVER[E|A]ND|
+    VICAR|
+    
+    
     
     # Other
+    AMBASSADOR|
     PROFESSOR|
     PROF|
-    ALDERMAN|ALD   
+    ALDERMAN|ALD|
+    COUNCILLOR
     )\ /x
 };
 

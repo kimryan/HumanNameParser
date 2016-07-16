@@ -6,7 +6,7 @@ WriteMakefile
 (
     'NAME'         => 'Lingua::EN::NameParse',
     'VERSION_FROM' => 'lib/Lingua/EN/NameParse.pm',
-    'ABSTRACT'    => "Extract the components of a person's full name",
+    'ABSTRACT'    => "extract the components of a person or couples full name, presented as a text string",
     'AUTHOR'      => 'Kim Ryan',
     'LICENSE'     => 'perl',
     'PREREQ_PM'   =>  { 'Parse::RecDescent' => 0 },

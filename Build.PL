@@ -4,7 +4,7 @@ Module::Build -> new
 (
  module_name    => 'Lingua::EN::NameParse',
  license        => 'perl',
- dist_abstract  => "Extract the components of a person's full name",
+ dist_abstract  => "extract the components of a person or couples full name, presented as a text string",
  dist_author    => 'Kim Ryan <kimryan at cpan org>',
  build_requires =>
  {

@@ -1,6 +1,6 @@
 =head1 NAME
 
-Lingua::EN::NameParse - extract the components of a person's full name
+Lingua::EN::NameParse - extract the components of a person or couples full name, presented as a text string
 
 =head1 SYNOPSIS
 
@@ -19,35 +19,55 @@ Lingua::EN::NameParse - extract the components of a person's full name
 
     my $name = Lingua::EN::NameParse->new(%args);
 
-    $error = $name->parse("MR AC DE SILVA");
+    $error = $name->parse("Estate Of Lt Col AB Van Der Heiden (Hold Mail)");
     unless ( $error )    
     {
+        print($name->report);
+        
+            Case all             : Estate Of Lt Col AB Van Der Heiden (Hold Mail)
+            Case all reversed    : Van Der Heiden, Lt Col AB
+            Salutation           : Dear Friend
+            Type                 : Mr_A_Smith
+            Parsing Error        : 0
+            Error description :  : 
+            Parsing Warning      : 1
+            Warning description  : ;non_matching text found : (Hold Mail)
+            
+            COMPONENTS
+            initials_1           : AB
+            non_matching         : (Hold Mail)
+            precursor            : Estate Of
+            surname_1            : Van Der Heiden
+            title_1              : Lt Col        
+    
         %name_comps = $name->components;
-        $surname = $name_comps{surname_1}; # De Silva
+        $surname = $name_comps{surname_1}; 
 
-        $correct_casing = $name->case_all; # Mr AC de Silva
+        $correct_casing = $name->case_all; 
 
-        $correct_casing = $name->case_all_reversed ; # de Silva, AC
+        $correct_casing = $name->case_all_reversed ; 
 
-        $salutation = $name->salutation(salutation => 'Dear',sal_default => 'Friend')); # Dear Mr de Silva
+        $salutation = $name->salutation(salutation => 'Dear',sal_default => 'Friend')); 
         
         $good_name = clean("Bad Na9me   "); # "Bad Name"
   
         %my_properties = $name->properties;
         $number_surnames = $my_properties{number}; # 1
     }
-
-    $name->report; # create a report listing all information about the parsed name
+    
 
     $lc_prefix = 0;
     $correct_case = case_surname("DE SILVA-MACNAY",$lc_prefix); # A stand alone function, returns: De Silva-MacNay
-
-
+    
+    $error = $name->parse("MR AS & D.E. DE LA MARE");
+    %my_properties = $name->properties;
+    $number_surnames = $my_properties{number}; # 2
+    
 
 =head1 DESCRIPTION
 
 
-This module takes as input one person's name or two persons' names in
+This module takes as input one person's name or a couples names in
 free format text such as,
 
     Mr AB & M/s CD MacNay-Smith
@@ -72,7 +92,6 @@ lists of names.
 
 
 =head1 DEFINITIONS
-
 
 The following terms are used by NameParse to define the components
 that can make up a name.
@@ -114,7 +133,7 @@ of the name is used. The following formats are currently supported :
     A_Smith
     John
 
-Precursors and suffixes may be applied to single names that includes a surname
+Precursors and suffixes may be applied to single names that have a surname
 
 
 =head1 METHODS
@@ -508,7 +527,7 @@ use Parse::RecDescent;
 use Exporter;
 use vars qw (@ISA @EXPORT_OK);
 
-our $VERSION = '1.35';
+our $VERSION = '1.36';
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(clean case_surname);
 
@@ -1058,6 +1077,7 @@ sub report
     printf($fmt,"Case all reversed",$name->case_all_reversed);
     printf($fmt,"Salutation",$name->salutation(salutation => 'Dear',sal_default => 'Friend', sal_type => 'title_plus_surname'));
     printf($fmt,"Type", $props{type});
+    printf($fmt,"Number", $props{number});
     printf($fmt,"Parsing Error", $name->{error});
     printf($fmt,"Error description : ", $name->{error_desc});
     printf($fmt,"Parsing Warning", $name->{warning});
@@ -1136,11 +1156,11 @@ sub _assemble
     
     foreach my $comp (@all_comps)
     {
-        # set all  components to empty string, as any of them could be accessed, even if they don't exist
+        # set all components to empty string, as any of them could be accessed, even if they don't exist
          $name->{comps}{$comp} = '';
         if (defined($parsed_name->{$comp}))
         {
-            # Copy over existing componets.
+            # Copy over existing components.
              $name->{comps}{$comp} = _trim_space($parsed_name->{$comp});  
         }  
     }
@@ -1225,7 +1245,7 @@ sub _valid_name
     }
     # Names should have a vowel sound,
     # valid exceptions are Ng, Tsz,Md, Cng,Hng,Chng etc
-    elsif ( $name and $name =~ /[AEIOUYJ]|^(NG|TSZ|MD|(C?H|[PTS])NG)$/ )
+    elsif ( $name and $name =~ /[AEIOUYJ]|^(NG|TSZ|MD|(C?H|[PTS])NG)$/i )
     {
         return(1);
     }

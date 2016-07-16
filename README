@@ -1,6 +1,6 @@
 NAME
 
-Lingua::EN::NameParse - extract the components of a person's full name
+Lingua::EN::NameParse - extract the components of a person or couples full name, presented as a text string
 
 SYNOPSIS
 
