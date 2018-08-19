@@ -1,6 +1,6 @@
 =head1 NAME
 
-Lingua::EN::NameParse - extract the components of a person or couples full name, presented as a text string
+Lingua::EN::NameParse -  extract the components of a person or couples full name, from free form text 
 
 =head1 SYNOPSIS
 
@@ -67,7 +67,7 @@ Lingua::EN::NameParse - extract the components of a person or couples full name,
 =head1 DESCRIPTION
 
 
-This module takes as input one person's name or a couples names in
+This module takes as input one person's name or a couples name in
 free format text such as,
 
     Mr AB & M/s CD MacNay-Smith
@@ -508,7 +508,7 @@ NameParse was written by Kim Ryan <kimryan at cpan dot org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2016 Kim Ryan. All rights reserved.
+Copyright (c) 2018 Kim Ryan. All rights reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
@@ -527,7 +527,7 @@ use Parse::RecDescent;
 use Exporter;
 use vars qw (@ISA @EXPORT_OK);
 
-our $VERSION = '1.36';
+our $VERSION = '1.37';
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(clean case_surname);
 
@@ -717,7 +717,8 @@ my %reverse_component_order=
    'John_A_Smith'         => ['surname_1','given_name_1','initials_1','suffix'],
    'J_Adam_Smith'         => ['surname_1','initials_1','middle_name','suffix'],
    'John_Smith'           => ['surname_1','given_name_1','suffix'],
-   'A_Smith'              => ['surname_1','initials_1','suffix']
+   'A_Smith'              => ['surname_1','initials_1','suffix'],
+   'John'                 => ['given_name_1']
 );
 
 #-------------------------------------------------------------------------------
