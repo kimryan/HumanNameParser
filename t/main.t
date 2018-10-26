@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 
 use strict;
-use Test::Simple tests => 12;
+use Test::Simple tests => 13;
 use Lingua::EN::NameParse qw(clean case_surname);
 
 my $input;
@@ -26,6 +26,9 @@ my %args =
 );
 
 my $name = Lingua::EN::NameParse->new(%args);
+
+$name->parse;
+ok( $name->{error} eq 'Missing input string', 'Caught missing input string');
 
 $input = "MR AB MACHLIN";
 $name->parse($input);

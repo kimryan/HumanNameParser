@@ -568,6 +568,12 @@ sub parse
     my $name = shift;
     my ($input_string) = @_;
 
+    if ( !defined $input_string )
+    {
+	$name->{error} = 'Missing input string';
+	return($name->{error});
+    }
+
     chomp($input_string);
 
     # If reverse ordered names are allowed, swap the surname component, before
