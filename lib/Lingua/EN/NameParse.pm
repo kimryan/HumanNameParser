@@ -942,7 +942,7 @@ sub salutation
     my $sal_default = 'Friend';
     my $sal_type = 'title_plus_surname';
 
-    # Check to see if we should override defualts with any user specified preferences
+    # Check to see if we should override defaults with any user specified preferences
     if ( %args )
     {
         foreach my $current_key (keys %args)
